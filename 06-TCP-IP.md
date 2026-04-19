@@ -1,204 +1,174 @@
-# 🌐 HTTP & HTTPS (Web Communication)
+# 🌐 TCP/IP (Transmission Control Protocol / Internet Protocol)
 
-## 🧠 What is HTTP?
+## 🧠 What is TCP/IP?
 
-HTTP (HyperText Transfer Protocol) is a protocol used for communication between client (browser) and server.
+TCP/IP is a set of protocols used to send data over the internet.
 
-👉 It defines how requests are sent and responses are received.
+- **IP (Internet Protocol)** → Identifies destination (address)
+- **TCP (Transmission Control Protocol)** → Ensures reliable delivery
 
 💥 **Key Idea:**  
-👉 “HTTP defines WHAT client wants from server”
+👉 “IP tells WHERE, TCP ensures SAFE delivery”
 
 ---
 
-## 🔁 Basic Flow
+## 🧩 TCP vs IP
 
-
-Client → HTTP Request → Server
-Server → HTTP Response → Client
-
+| Protocol | Role |
+|----------|------|
+| IP | Addressing (where to send data) |
+| TCP | Reliable delivery (how to send data) |
 
 ---
 
-## 📤 HTTP Request
+## 🔁 Complete Flow
 
-A request sent by client to server.
 
-### 🧪 Example:
-
-GET / HTTP/1.1
-Host: google.com
+Client → TCP Connection → Data Transfer → Server
 
 
 ---
 
-## 🧠 Request Breakdown
+## 🚀 TCP 3-Way Handshake
 
-### 🔹 1. Method
-Defines action:
+Before sending data, connection is established.
 
-| Method | Meaning |
-|--------|--------|
-| GET | Fetch data |
-| POST | Send data |
-| PUT | Update data |
-| DELETE | Remove data |
+### 🔹 Step 1 — SYN
+Client sends:
+👉 “I want to connect”
 
 ---
 
-### 🔹 2. Path
-
-/ → homepage
-/login → login page
-
+### 🔹 Step 2 — SYN-ACK
+Server replies:
+👉 “Connection accepted”
 
 ---
 
-### 🔹 3. HTTP Version
-
-HTTP/1.1
-
-
----
-
-### 🔹 4. Headers
-
-Extra information sent with request.
-
-### 🧪 Example:
-
-Host: google.com
-User-Agent: Chrome
-Accept: text/html
-
-
-👉 **Host = which website**
-👉 **User-Agent = which browser**
-👉 **Accept = what type of data**
+### 🔹 Step 3 — ACK
+Client confirms:
+👉 “Let's start communication”
 
 ---
 
-### 🔹 5. Body (POST only)
-
-Used to send data:
+### 📊 Flow
 
 
-username=durgesh
-password=123
+Client → SYN
+Server → SYN-ACK
+Client → ACK
 
+
+👉 Connection established ✔
 
 ---
 
-## 📥 HTTP Response
+## 📦 Packet Concept
 
-Server reply to client.
+Data is broken into small units called **packets**
 
-### 🧪 Example:
+---
 
-HTTP/1.1 200 OK
+## 🧠 Packet Structure
+
+Each packet contains:
+
+
+Source IP
+Destination IP
+Source Port
+Destination Port
+Sequence Number
+Data
 
 
 ---
 
-## 📊 Status Codes
+## 🔢 Sequence Number
 
-### 🟢 2xx (Success)
-- 200 OK
-
-### 🔴 4xx (Client Error)
-- 404 Not Found
-
-### 🔥 5xx (Server Error)
-- 500 Internal Server Error
+- Helps maintain order
+- Ensures correct data arrangement
 
 ---
 
-## 🔐 What is HTTPS?
+## 🔁 Reliability (MOST IMPORTANT)
 
-HTTPS = HTTP + TLS (Security Layer)
-
-👉 Data is encrypted before sending
+TCP ensures reliable delivery using:
 
 ---
 
-## 🔒 Why HTTPS?
+### ✔ 1. Acknowledgement (ACK)
 
-- Protects data
-- Prevents hacking
-- Ensures secure communication
+- Receiver confirms data received
 
 ---
 
-## 🔁 HTTPS Flow
+### ✔ 2. Retransmission
+
+- If packet lost → resend
+
+---
+
+### ✔ 3. Order Management
+
+- Packets reassembled in correct order
+
+---
+
+### ✔ 4. Flow Control
+
+- Prevents overwhelming receiver
+
+---
+
+## ⚡ Example Flow
 
 
-Client → TLS Handshake → Secure Connection
-↓
-HTTP Request (Encrypted)
-↓
-Server Response (Encrypted)
+Packet 1 → ACK ✔
+Packet 2 → LOST ❌ → resend
+Packet 3 → ACK ✔
 
 
 ---
 
-## 🔐 TLS (Transport Layer Security)
+## 🔄 Connection Termination
 
-- Encrypts communication
-- Uses certificate for identity
+After communication ends:
 
----
 
-## 📜 Certificate
+FIN → ACK → FIN → ACK
 
-Server identity proof.
 
-Contains:
-- Domain name
-- Public key
-- Issuer (CA)
+👉 Connection closed
 
 ---
 
-## 🧠 HTTP vs HTTPS
+## 🔥 TCP vs UDP
 
-| Feature | HTTP | HTTPS |
-|--------|------|-------|
-| Security | ❌ No | ✔ Yes |
-| Encryption | ❌ | ✔ |
-| Port | 80 | 443 |
+| Feature | TCP | UDP |
+|--------|-----|-----|
+| Reliable | ✔ | ❌ |
+| Fast | ❌ | ✔ |
+| Use Case | Web, API | Streaming, Gaming |
 
 ---
 
-## 🌐 Real Flow Example
+## 🌐 Real World Mapping
 
-
-https://google.com
-
-↓
-DNS → IP
-↓
-TCP connection
-↓
-TLS handshake
-↓
-HTTP request (encrypted)
-↓
-Server response
-↓
-Browser renders page
-
+- TCP = courier with tracking ✔
+- UDP = normal post ❌
 
 ---
 
 ## 📦 Summary
 
-- HTTP = communication protocol
-- HTTPS = secure HTTP
-- Uses request & response model
-- Status codes define result
+- TCP ensures reliable communication
+- Uses handshake to establish connection
+- Data sent in packets
+- ACK + retransmission ensures delivery
 
 ---
 
 ## 💥 GOLD LINE
 
-👉 “HTTP tells what you want, HTTPS protects it”
+👉 “TCP guarantees delivery, IP guarantees destination”
